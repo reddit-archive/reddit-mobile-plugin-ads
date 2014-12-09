@@ -12,6 +12,8 @@ function Mutators (app) {
     query(el, 'main').forEach(function(element) {
       element.props.children.splice(0, 0, <Ad />);
     });
+
+    return el;
   }
 
   return {
