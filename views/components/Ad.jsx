@@ -15,8 +15,6 @@ var Ad = React.createClass({
 });
 
 function AdFactory(app) {
-  Vote = VoteFactory(app);
-
   return app.mutate('ads/components/ad', Ad);
 }
 

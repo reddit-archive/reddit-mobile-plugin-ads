@@ -1,13 +1,15 @@
-import { mutate, query } from 'switcharoo/src/mutate';
+import * as React from 'react';
+import { mutate, query } from 'react-mutator';
 
-import AdFactory from './viws/components/Ad'
-var Ad;
+import AdFactory from './views/components/Ad'
 
 function Mutators (app) {
-  Ad = AdFactory(app);
+  var Ad = AdFactory(app);
 
-  var indexPageMutator = function() {
-    query(this, 'main').forEach(function(el) {
+  function indexPageMutator() {
+    var el = this;
+
+    query(el, 'main').forEach(function(element) {
       element.props.children.splice(0, 0, <Ad />);
     });
   }
@@ -16,8 +18,7 @@ function Mutators (app) {
     'core/components/index': [
       indexPageMutator,
     ],
-  }
-
+  };
 }
 
 export default Mutators;

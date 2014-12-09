@@ -5,7 +5,7 @@ import Mutators from './mutators';
 var core = {};
 
 core.register = function(app, server) {
-  mutators = Mutators(app);
+  var mutators = Mutators(app);
 
   for (var el in mutators) {
     app.registerMutators(el, mutators[el]);
