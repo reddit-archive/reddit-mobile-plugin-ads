@@ -2,32 +2,43 @@
 
 import * as React from 'react';
 
-import ListingFactory from 'switcharoo-plugin-core/views/components/Listing';
-var Listing;
-
 var Ad = React.createClass({
   render: function() {
-    var fakeAdListingProps = {
-      listing: {
-        url: '/ad',
-        permalink: '/ad/idnumber',
-        cleanUrl: '/ad',
-        thumbnail: '',
-        title: 'This is an advertisement',
-        listingClass: 'ad',
-        hideSubredditLabel: 'true',
-        comments: parseInt(Math.random() * 1000),
-      }
-    };
-
     return (
-      <Listing {...fakeAdListingProps} />
+      <div className='listing vertical-spacing'>
+        <article className='article listing well well-sm'>
+          <div className='row'>
+            <div className='col-xs-2 col-sm-1'>
+              <a href={ this.props.linkUrl } target='_blank'>
+                <img src={ this.props.thumbnail } className='listing-thumbnail' />
+              </a>
+            </div>
+            <div className='col-xs-10 col-sm-11'>
+              <header>
+                <a href={ this.props.linkUrl } target='_blank'>
+                  <h1 className='listing-title'>
+                    { this.props.linkText }
+                  </h1>
+                </a>
+              </header>
+
+              <p>
+                { this.props.descriptionText }
+              </p>
+            </div>
+          </div>
+          <div className='row'>
+            <footer className='col-xs-12'>
+              <span className='text-small pull-right'>This is an ad.</span>
+            </footer>
+          </div>
+        </article>
+      </div>
     );
   }
 });
 
 function AdFactory(app) {
-  Listing = ListingFactory(app);
   return app.mutate('ads/components/ad', Ad);
 }
 
