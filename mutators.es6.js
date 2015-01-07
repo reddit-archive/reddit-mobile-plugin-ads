@@ -20,24 +20,29 @@ function Mutators (app) {
     var el = this;
 
     query(el, 'main').forEach(function(element) {
-      var listings = element.props.children[1];
-      var location = parseInt(Math.random() * listings.length);
-      var userAgent;
+      query(element, 'div').forEach(function(element) {
+        if (element.ref === 'listings') {
+          var listings = element.props.children[0];
 
-      if (listings.length > 0) {
-        if (global.navigator && global.navigator.userAgent) {
-          userAgent = parseUserAgent(global.navigator.userAgent);
+          var location = parseInt(Math.random() * listings.length);
+          var userAgent;
+
+          if (listings.length > 0) {
+            if (global.navigator && global.navigator.userAgent) {
+              userAgent = parseUserAgent(global.navigator.userAgent);
+            }
+
+            listings.splice(location, 0, <MobileDeviceAd userAgent={ userAgent } />);
+          }
         }
-
-        listings.splice(location, 0, <MobileDeviceAd userAgent={ userAgent } />);
-      }
+      });
     });
 
     return el;
   }
 
   return {
-    'core/components/index': [
+    'core/pages/index': [
       indexPageMutator,
     ],
   };
