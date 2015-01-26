@@ -10,13 +10,13 @@ var Ad = React.createClass({
           <div className='row'>
             <div className='col-xs-2 col-sm-1'>
               <a href={ this.props.linkUrl } target='_blank'>
-                <img src={ this.props.thumbnail } className='listing-thumbnail' />
+                <img src={ this.props.thumbnail } className='img-responsive' />
               </a>
             </div>
             <div className='col-xs-10 col-sm-11'>
               <header>
                 <a href={ this.props.linkUrl } target='_blank'>
-                  <h1 className='listing-title'>
+                  <h1 className='h4'>
                     { this.props.linkText }
                   </h1>
                 </a>

@@ -1,6 +1,6 @@
 {
   "name": "switcharoo-plugin-ads",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "ads for the switcharoo mobile reddit client",
   "main": "core.es6.js",
   "scripts": {

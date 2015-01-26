@@ -24,7 +24,7 @@ function Mutators (app) {
         if (element.ref === 'listings') {
           var listings = element.props.children[0];
 
-          var location = parseInt(Math.random() * listings.length);
+          var location = listings.length > 5 ? 5 : 0;
           var userAgent;
 
           if (listings.length > 0) {
