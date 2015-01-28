@@ -4,6 +4,10 @@ import * as React from 'react';
 
 var Ad = React.createClass({
   render: function() {
+    if (!this.props.linkUrl) {
+      return;
+    }
+
     return (
       <div className='listing vertical-spacing'>
         <article className='article listing well well-sm'>
