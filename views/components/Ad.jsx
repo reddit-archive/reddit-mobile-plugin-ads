@@ -5,7 +5,7 @@ import * as React from 'react';
 var Ad = React.createClass({
   render: function() {
     if (!this.props.linkUrl) {
-      return;
+      return (<div />);
     }
 
     return (
