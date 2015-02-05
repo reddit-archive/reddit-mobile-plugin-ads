@@ -3,7 +3,7 @@ var Ad;
 
 /** @jsx React.DOM */
 
-import * as React from 'react';
+import React from 'react';
 
 var propsMap = {
   android: [{
@@ -37,16 +37,18 @@ function getProps (device) {
   return propsMap[device][random];
 }
 
-var MobileDeviceAd = React.createClass({
-  componentWillMount: function() {
-    this.props = getProps(this.props.userAgent);
-  },
-  render: function() {
+class MobileDeviceAd extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = getProps(props.userAgent);
+  }
+
+  render () {
     return (
-      <Ad {...this.props} />
+      <Ad {...this.state} />
     );
   }
-});
+}
 
 function MobileDeviceAdFactory(app) {
   Ad = AdFactory(app);

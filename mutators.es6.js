@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { mutate, query } from 'react-mutator';
 
 import MobileDeviceAdFactory from './views/components/MobileDeviceAd'
@@ -32,7 +32,9 @@ function Mutators (app) {
               userAgent = parseUserAgent(global.navigator.userAgent);
             }
 
-            listings.splice(location, 0, <MobileDeviceAd userAgent={ userAgent } />);
+            element.props.children[0].splice(location, 0, (
+              <MobileDeviceAd userAgent={ userAgent } />
+            ));
           }
         }
       });

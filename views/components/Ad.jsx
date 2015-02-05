@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 
-import * as React from 'react';
+import React from 'react';
 
-var Ad = React.createClass({
-  render: function() {
+class Ad extends React.Component {
+  render () {
     if (!this.props.linkUrl) {
       return (<div />);
     }
@@ -40,7 +40,7 @@ var Ad = React.createClass({
       </div>
     );
   }
-});
+};
 
 function AdFactory(app) {
   return app.mutate('ads/components/ad', Ad);
