@@ -1,9 +1,7 @@
 import AdFactory from './Ad';
-var Ad;
-
-/** @jsx React.DOM */
-
 import React from 'react';
+
+var Ad;
 
 var propsMap = {
   android: [{

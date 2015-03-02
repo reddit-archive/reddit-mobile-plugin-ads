@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 import React from 'react';
 
 class Ad extends React.Component {
