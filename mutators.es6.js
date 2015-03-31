@@ -13,6 +13,8 @@ function parseUserAgent (agent) {
   }
 }
 
+const AD_LOCATION = 11;
+
 function Mutators (app) {
   var MobileDeviceAd = MobileDeviceAdFactory(app);
 
@@ -24,10 +26,10 @@ function Mutators (app) {
         if (element.ref === 'listings') {
           var listings = element.props.children[0];
 
-          var location = listings.length > 5 ? 5 : 0;
-          var userAgent;
-
           if (listings.length > 0) {
+            var userAgent;
+            var location = Math.min(AD_LOCATION, listings.length);
+
             if (global.navigator && global.navigator.userAgent) {
               userAgent = parseUserAgent(global.navigator.userAgent);
             }
