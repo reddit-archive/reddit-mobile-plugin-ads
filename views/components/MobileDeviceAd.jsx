@@ -7,19 +7,19 @@ var propsMap = {
   android: [{
     linkText: 'check out our AMA app!',
     linkUrl: 'https://play.google.com/store/apps/details?id=com.reddit.iama',
-    thumbnail: '/img/ama.png',
+    thumbnail: 'https://www.redditstatic.com/mobile-web/img/ama.png',
     descriptionText: 'We just released an awesome way to browse AMAs. Get it for Android or iOS.'
   }],
   ios: [{
     linkText: 'check out our AMA app!',
     linkUrl: 'https://itunes.apple.com/us/app/reddit-ama-ask-me-anything/id911630284?mt=8',
-    thumbnail: '/img/ama.png',
+    thumbnail: 'https://www.redditstatic.com/mobile-web/img/ama.png',
     descriptionText: 'We just released an awesome way to browse AMAs. Get it for Android or iOS.',
   },
   {
     linkText: 'check out our official ios app, alienblue!',
     linkUrl: 'https://itunes.apple.com/us/app/alien-blue-reddit-official/id923187241?mt=8',
-    thumbnail: '/img/alienblue.png',
+    thumbnail: 'https://www.redditstatic.com/mobile-web/img/alienblue.png',
     descriptionText: 'Browse reddit on the official ios app.',
   }]
 };
