@@ -1,46 +1,75 @@
 import React from 'react';
+import superagent from 'superagent';
+
+import { models } from 'snoode';
+
+import ListingFactory from 'reddit-mobile/src/views/components/Listing';
+var Listing;
 
 class Ad extends React.Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      loaded: false,
+    };
+  }
+
+  getAd () {
+    return new Promise((resolve, reject) => {
+      superagent.post('https://www.reddit.com/api/request_promo.json')
+        .send(`srnames=${this.props.listing.subreddit}&is_mobile_web=true`)
+        .end(function(err, res) {
+          if (err) {
+            return reject(err);
+          }
+
+          if (res && res.status === 200 && res.body) {
+            var link = res.body.data;
+            link.url = link.adserver_click_url;
+            return resolve(new models.Link(link).toJSON());
+          } else {
+            return reject(res);
+          }
+        });
+      });
+  }
+
+  componentDidMount () {
+    var ctx = this;
+
+    this.getAd().then((ad) => {
+      return this.setState({
+        loaded: true,
+        ad: new models.Link(ad).toJSON(),
+      });
+    }, () => {});
+  }
+
   render () {
-    if (!this.props.linkUrl) {
-      return (<div />);
+    if (!this.state.loaded) {
+      return (<div></div>);
     }
 
-    return (
-      <div className='listing vertical-spacing'>
-        <article className='article listing well well-sm'>
-          <div className='row'>
-            <div className='col-xs-2 col-sm-1'>
-              <a href={ this.props.linkUrl } target='_blank'>
-                <img src={ this.props.thumbnail } className='img-responsive' />
-              </a>
-            </div>
-            <div className='col-xs-10 col-sm-11'>
-              <header>
-                <a href={ this.props.linkUrl } target='_blank'>
-                  <h1 className='h4'>
-                    { this.props.linkText }
-                  </h1>
-                </a>
-              </header>
+    var props = this.props;
+    props.listing = this.state.ad;
+    props.sponsored = true;
+    props.hideSubredditLabel = true;
+    props.hideWhen = true;
+    props.hideDomain = true;
 
-              <p>
-                { this.props.descriptionText }
-              </p>
-            </div>
-          </div>
-          <div className='row'>
-            <footer className='col-xs-12'>
-              <span className='text-small pull-right'>This is an ad.</span>
-            </footer>
-          </div>
-        </article>
+    return (
+      <div>
+        <Listing {...props } />
+        <img src={ props.listing.adserver_imp_pixel } height='0' width='0' />
+        <img src={ props.listing.imp_pixel } height='0' width='0' />
       </div>
     );
   }
 };
 
 function AdFactory(app) {
+  Listing = ListingFactory(app);
   return app.mutate('ads/components/ad', Ad);
 }
 
