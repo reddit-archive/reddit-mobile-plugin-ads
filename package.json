@@ -9,10 +9,8 @@
   "author": "reddit <jack@reddit.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash.uniq": "^3.1.0",
     "react": "^0.13.0",
     "react-mutator": "^0.4.0",
-    "reddit-mobile": "^1.4.0",
     "superagent": "^1.2.0"
   }
 }

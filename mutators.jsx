@@ -3,8 +3,6 @@ import { mutate, query } from 'react-mutator';
 
 import AdFactory from './views/components/Ad'
 
-import uniq from 'lodash.uniq';
-
 const AD_LOCATION = 11;
 
 function Mutators (app) {
@@ -22,12 +20,8 @@ function Mutators (app) {
           var randomElementIndex = parseInt(element.props.children[0].length * Math.random());
           var hijackedProps = element.props.children[0][randomElementIndex].props;
 
-          var srnames = uniq(element.props.children[0].map(function(l) {
-            return l.props.listing.subreddit;
-          }));
-
           element.props.children[0].splice(location, 0, (
-            <Ad { ...hijackedProps } srnames={srnames} />
+            <Ad { ...hijackedProps } />
           ));
         }
       }

@@ -18,11 +18,7 @@ class Ad extends React.Component {
   getAd () {
     return new Promise((resolve, reject) => {
       superagent.post('https://www.reddit.com/api/request_promo.json')
-        .type('form')
-        .send({
-          srnames: this.props.srnames.join('+'),
-          is_mobile_web: true,
-        })
+        .send(`srnames=${this.props.listing.subreddit}&is_mobile_web=true`)
         .end(function(err, res) {
           if (err) {
             return reject(err);
