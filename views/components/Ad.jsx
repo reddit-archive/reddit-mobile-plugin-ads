@@ -58,6 +58,11 @@ class Ad extends React.Component {
     props.hideWhen = true;
     props.hideDomain = true;
 
+    if (props.listing.disable_comments) {
+      props.listing.permalink = undefined;
+      props.hide_comments = true;
+    }
+
     if (props.listing.mobile_ad_url) {
       props.listing.preview = {
         source: {
@@ -69,7 +74,6 @@ class Ad extends React.Component {
     return (
       <div>
         <Listing {...props } />
-        <img src={ props.listing.adserver_imp_pixel } height='0' width='0' />
         <img src={ props.listing.imp_pixel } height='0' width='0' />
       </div>
     );
