@@ -58,13 +58,15 @@ class Ad extends React.Component {
     props.hideWhen = true;
     props.hideDomain = true;
 
-    if (props.mobile_ad_url) {
-      props.preview = {
+    if (props.listing.mobile_ad_url) {
+      props.listing.preview = {
         source: {
-          url: props.mobile_ad_url,
+          url: props.listing.mobile_ad_url,
         },
       };
     }
+
+    console.log('ad', props.listing, props.listing.id);
 
     return (
       <div>
