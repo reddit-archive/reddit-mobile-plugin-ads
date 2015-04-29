@@ -27,6 +27,9 @@ class Ad extends React.Component {
           if (res && res.status === 200 && res.body) {
             var link = res.body.data;
             link.url = link.href_url.replace(/&amp;/g, '&');
+
+            link.url = link.imp_pixel.replace(/&amp;/g, '&');
+            link.url = link.adserver_imp_pixel.replace(/&amp;/g, '&');
             return resolve(new models.Link(link).toJSON());
           } else {
             return reject(res);
