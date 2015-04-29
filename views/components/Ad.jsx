@@ -75,6 +75,7 @@ class Ad extends React.Component {
       <div>
         <Listing {...props } />
         <img src={ props.listing.imp_pixel } height='0' width='0' />
+        <img src={ props.listing.adserver_imp_pixel } height='0' width='0' />
       </div>
     );
   }
