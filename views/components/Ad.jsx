@@ -28,8 +28,8 @@ class Ad extends React.Component {
             var link = res.body.data;
             link.url = link.href_url.replace(/&amp;/g, '&');
 
-            link.url = link.imp_pixel.replace(/&amp;/g, '&');
-            link.url = link.adserver_imp_pixel.replace(/&amp;/g, '&');
+            link.imp_pixel = link.imp_pixel.replace(/&amp;/g, '&');
+            link.adserver_imp_pixel = link.adserver_imp_pixel.replace(/&amp;/g, '&');
             return resolve(new models.Link(link).toJSON());
           } else {
             return reject(res);
