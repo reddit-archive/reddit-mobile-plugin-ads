@@ -16,9 +16,21 @@ class Ad extends React.Component {
   }
 
   getAd () {
+    var srnames = this.props.srnames;
+
+    // If we're not on a sub/multi, we're on the front page, so get front page
+    // ads
+    if (!this.props.subredditTitle) {
+      srnames = 'reddit.com';
+    }
+
     return new Promise((resolve, reject) => {
       superagent.post('https://www.reddit.com/api/request_promo.json')
-        .send(`srnames=${this.props.listing.subreddit}&is_mobile_web=true`)
+        .type('form')
+        .send({
+          srnames: srnames,
+          is_mobile_web: true,
+        })
         .end(function(err, res) {
           if (err) {
             return reject(err);

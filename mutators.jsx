@@ -1,4 +1,6 @@
 import React from 'react';
+import _ from 'lodash';
+
 import { mutate, query } from 'react-mutator';
 
 import AdFactory from './views/components/Ad'
@@ -20,8 +22,12 @@ function Mutators (app) {
           var randomElementIndex = parseInt(element.props.children[0].length * Math.random());
           var hijackedProps = element.props.children[0][randomElementIndex].props;
 
+          var srnames = _.uniq(element.props.children[0].map(function(l) {
+            return l.props.listing.subreddit;
+          }));
+
           element.props.children[0].splice(location, 0, (
-            <Ad { ...hijackedProps } />
+            <Ad { ...hijackedProps } srnames={srnames} />
           ));
         }
       }
