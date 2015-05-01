@@ -21,7 +21,7 @@ class Ad extends React.Component {
     // If we're not on a sub/multi, we're on the front page, so get front page
     // ads
     if (!this.props.subredditTitle) {
-      srnames = 'reddit.com';
+      srnames = ' reddit.com';
     }
 
     return new Promise((resolve, reject) => {
