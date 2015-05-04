@@ -1,6 +1,6 @@
 {
   "name": "reddit-mobile-plugin-ads",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "ads for the reddit mobile web client",
   "main": "core.es6.js",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "reddit <jack@reddit.com>",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^3.8.0",
     "react": "^0.13.0",
     "react-mutator": "^0.4.0",
     "superagent": "^1.2.0"
