@@ -12,6 +12,7 @@
     "lodash": "^3.8.0",
     "react": "^0.13.0",
     "react-mutator": "^0.4.0",
+    "snoode": "^1.5.1",
     "superagent": "^1.2.0"
   }
 }
