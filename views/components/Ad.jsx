@@ -5,6 +5,7 @@ import { models } from 'snoode';
 
 import ListingFactory from 'reddit-mobile/src/views/components/Listing';
 var Listing;
+var _ = require('lodash').runInContext();
 
 class Ad extends React.Component {
   constructor (props) {
@@ -13,7 +14,7 @@ class Ad extends React.Component {
     this.state = {
       loaded: false,
     };
-    this._onScroll = this._onScroll.bind(this);
+    this._onScroll = _.throttle(this._onScroll.bind(this), 100);
     this._removeListeners = this._removeListeners.bind(this);
   }
 
@@ -54,10 +55,9 @@ class Ad extends React.Component {
 
   componentDidMount () {
     this.getAd().then((ad) => {
-      this.adObject = new models.Link(ad).toJSON();
       return this.setState({
         loaded: true,
-        ad: this.adObject,
+        ad: new models.Link(ad).toJSON(),
       });
     }, () => {});
 
@@ -80,24 +80,25 @@ class Ad extends React.Component {
   }
 
   _onScroll() {
-    var node = React.findDOMNode(this);
-    var winHeight = window.innerHeight;
-    var rect = node.getBoundingClientRect();
-    var top = rect.top;
-    var height = rect.height;
-    var bottom = top + rect.height;
-    var middle = (top + bottom) / 2;
-    var middleIsAboveBottom = middle < winHeight;
-    var middleIsBelowTop = bottom > 45 + height / 2;
-
-    if(middleIsAboveBottom && middleIsBelowTop) {
-      var srcs=['imp_pixel', 'adserver_imp_pixel'];
-      for (var i = 0, iLen = srcs.length; i < iLen; i++) {
-        var pixel = new Image();
-        pixel.src = this.adObject[srcs[i]];
+    var adObject = this.state.ad;
+    if (adObject) {
+      var node = React.findDOMNode(this);
+      var winHeight = window.innerHeight;
+      var rect = node.getBoundingClientRect();
+      var top = rect.top;
+      var height = rect.height;
+      var bottom = top + rect.height;
+      var middle = (top + bottom) / 2;
+      var middleIsAboveBottom = middle < winHeight;
+      var middleIsBelowTop = bottom > 45 + height / 2;
+      if(middleIsAboveBottom && middleIsBelowTop) {
+        var srcs=['imp_pixel', 'adserver_imp_pixel'];
+        for (var i = 0, iLen = srcs.length; i < iLen; i++) {
+          var pixel = new Image();
+          pixel.src = adObject[srcs[i]];
+        }
+        this._removeListeners();
       }
-
-      this._removeListeners();
     }
   }
 
