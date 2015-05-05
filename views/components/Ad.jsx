@@ -53,8 +53,6 @@ class Ad extends React.Component {
   }
 
   componentDidMount () {
-    var ctx = this;
-
     this.getAd().then((ad) => {
       this.adObject = new models.Link(ad).toJSON();
       return this.setState({
