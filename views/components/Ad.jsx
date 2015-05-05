@@ -1,5 +1,6 @@
 import React from 'react';
 import superagent from 'superagent';
+import constants from 'reddit-mobile/src/constants';
 
 import { models } from 'snoode';
 
@@ -90,7 +91,7 @@ class Ad extends React.Component {
       var bottom = top + rect.height;
       var middle = (top + bottom) / 2;
       var middleIsAboveBottom = middle < winHeight;
-      var middleIsBelowTop = bottom > 45 + height / 2;
+      var middleIsBelowTop = bottom > constants.TOP_NAV_HEIGHT + height / 2;
       if(middleIsAboveBottom && middleIsBelowTop) {
         var srcs=['imp_pixel', 'adserver_imp_pixel'];
         for (var i = 0, iLen = srcs.length; i < iLen; i++) {
