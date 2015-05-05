@@ -5,6 +5,7 @@ import { models } from 'snoode';
 
 import ListingFactory from 'reddit-mobile/src/views/components/Listing';
 var Listing;
+var _ = require('lodash').runInContext();
 
 class Ad extends React.Component {
   constructor (props) {
@@ -13,6 +14,8 @@ class Ad extends React.Component {
     this.state = {
       loaded: false,
     };
+    this._onScroll = _.throttle(this._onScroll.bind(this), 100);
+    this._removeListeners = this._removeListeners.bind(this);
   }
 
   getAd () {
@@ -51,14 +54,52 @@ class Ad extends React.Component {
   }
 
   componentDidMount () {
-    var ctx = this;
-
     this.getAd().then((ad) => {
       return this.setState({
         loaded: true,
         ad: new models.Link(ad).toJSON(),
       });
     }, () => {});
+
+    window.addEventListener('scroll', this._onScroll);
+    window.addEventListener('resize', this._onScroll);
+    this._hasListeners = true;
+    this._onScroll();
+  }
+
+  componentWillUnmount() {
+    this._removeListeners();
+  }
+
+  _removeListeners() {
+    if (this._hasListeners) {
+      window.removeEventListener('scroll', this._onScroll);
+      window.removeEventListener('resize', this._onScroll);
+      this._hasListeners = false;
+    }
+  }
+
+  _onScroll() {
+    var adObject = this.state.ad;
+    if (adObject) {
+      var node = React.findDOMNode(this);
+      var winHeight = window.innerHeight;
+      var rect = node.getBoundingClientRect();
+      var top = rect.top;
+      var height = rect.height;
+      var bottom = top + rect.height;
+      var middle = (top + bottom) / 2;
+      var middleIsAboveBottom = middle < winHeight;
+      var middleIsBelowTop = bottom > 45 + height / 2;
+      if(middleIsAboveBottom && middleIsBelowTop) {
+        var srcs=['imp_pixel', 'adserver_imp_pixel'];
+        for (var i = 0, iLen = srcs.length; i < iLen; i++) {
+          var pixel = new Image();
+          pixel.src = adObject[srcs[i]];
+        }
+        this._removeListeners();
+      }
+    }
   }
 
   render () {
@@ -89,8 +130,6 @@ class Ad extends React.Component {
     return (
       <div>
         <Listing {...props } />
-        <img src={ props.listing.imp_pixel } height='0' width='0' />
-        <img src={ props.listing.adserver_imp_pixel } height='0' width='0' />
       </div>
     );
   }
