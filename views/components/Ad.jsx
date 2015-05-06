@@ -120,10 +120,16 @@ class Ad extends React.Component {
       props.hide_comments = true;
     }
 
-    if (props.listing.mobile_ad_url) {
+    var listingPreview;
+    if (props.compact && props.listing.thumbnail) {
+      listingPreview = props.listing.thumbnail;
+    } else if (props.listing.mobile_ad_url) {
+      listingPreview = props.listing.mobile_ad_url;
+    }
+    if (listingPreview) {
       props.listing.preview = {
         source: {
-          url: props.listing.mobile_ad_url,
+          url: listingPreview,
         },
       };
     }
