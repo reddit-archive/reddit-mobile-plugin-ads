@@ -1,6 +1,6 @@
 {
   "name": "reddit-mobile-plugin-ads",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "ads for the reddit mobile web client",
   "main": "core.es6.js",
   "scripts": {
