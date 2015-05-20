@@ -13,9 +13,10 @@ function Mutators (app) {
   function indexPageMutator() {
     var el = this;
 
-    query(el, 'div').forEach(function(element) {
-      if (element.ref === 'listings') {
+    query(el, 'span').forEach(function(element) {
+      if (element.ref === 'listingList') {
         var listings = element.props.children[0];
+        console.log(listings);
 
         if (listings.length > 0) {
           var location = Math.min(AD_LOCATION, listings.length);
@@ -37,7 +38,7 @@ function Mutators (app) {
   }
 
   return {
-    'core/pages/index': [
+    'core/components/listingList': [
       indexPageMutator,
     ],
   };
